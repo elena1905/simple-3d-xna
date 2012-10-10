@@ -47,6 +47,17 @@ namespace _3D1
             view = Matrix.CreateLookAt(cPos, cPos + cLook, cUp);
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 800.0f / 400.0f, 1.0f, 1000.0f);
 
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                foreach (BasicEffect effect in mesh.Effects)
+                {
+                    effect.EnableDefaultLighting();
+                    effect.World = world;
+                    effect.Projection = projection;
+                    effect.View = view;
+                }
+                mesh.Draw();
+            }
         }
     }
 }

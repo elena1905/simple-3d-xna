@@ -21,9 +21,7 @@ namespace _3D1
         public static Game1 Instance;
         public List<Entity3D> children = new List<Entity3D>();
 
-        Vector3 pos;
-        Vector3 cPos, cLook, cUp, cRight;
-        Model model;
+        Dalek dalek;
 
         public Game1()
         {
@@ -41,9 +39,15 @@ namespace _3D1
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            dalek = new Dalek();
 
+            children.Add(dalek);
+
+            for (int i = 0; i < children.Count(); i++)
+            {
+                children[i].Initialize();
+            }
             
-
             base.Initialize();
         }
 
@@ -56,7 +60,10 @@ namespace _3D1
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            
+            for (int i = 0; i < children.Count(); i++)
+            {
+                children[i].LoadContent();
+            }
 
             // TODO: use this.Content to load your game content here
         }
@@ -77,10 +84,20 @@ namespace _3D1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            for (int i = 0; i < children.Count(); i++)
+            {
+                children[i].Update(gameTime);
+
+                // If an entity is dead, remove it from the children list
+                if (!children[i].Alive)
+                {
+                    children.Remove(children[i]);
+                }
+            }
+
             // Allows the game to exit
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
-
 
             // TODO: Add your update logic here
 
@@ -95,18 +112,13 @@ namespace _3D1
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            
-            fore (ModelMesh mesh in model.Meshes)
+            spriteBatch.Begin();
+            for (int i = 0; i < children.Count(); i++)
             {
-                for (BasicEffect effect in mesh.Effects)
-                {
-                    effect.EnableDefaultLighting();
-                    effect.World = chilren[i].world;
-                    effect.Projection = chilren[i].projection;
-                    effect.View = chilren[i].view;
-                }
-                mesh.Draw();
+                children[i].Draw(gameTime);
             }
+            spriteBatch.End();
+            
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

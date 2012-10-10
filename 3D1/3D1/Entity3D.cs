@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3D1
 {
-    class Entity3D
+    public class Entity3D
     {
         // Class members
         public Vector3 pos;
@@ -23,8 +23,10 @@ namespace _3D1
 
         public virtual void Initialize()
         {
-            pos = new Vector3(0, 0, -20);
+            Alive = true;
 
+            pos = new Vector3(0, 0, -20);
+            
             cPos = new Vector3(0, 6, 0);
             cLook = new Vector3(0, 0, -1);
             cRight = new Vector3(1, 0, 0);
