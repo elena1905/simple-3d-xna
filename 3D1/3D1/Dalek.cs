@@ -10,7 +10,7 @@ namespace _3D1
 {
     class Dalek : Entity3D
     {
-        Vector3 centre;
+        //Vector3 centre;
         float spin = 0.0f;
 
         public override void LoadContent()
@@ -58,6 +58,7 @@ namespace _3D1
                 }
                 mesh.Draw();
             }
+            //Game1.Instance.spriteBatch.Draw(model, pos, null, Color.White, look, centre, Vector3.One, SpriteEffects.None, 1);
         }
     }
 }

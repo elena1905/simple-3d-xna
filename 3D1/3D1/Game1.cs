@@ -16,8 +16,8 @@ namespace _3D1
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public GraphicsDeviceManager graphics;
+        public SpriteBatch spriteBatch;
         public static Game1 Instance;
         public List<Entity3D> children = new List<Entity3D>();
 
