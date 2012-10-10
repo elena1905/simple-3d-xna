@@ -18,14 +18,16 @@ namespace _3D1
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public static Game1 Instance;
+        public List<Entity3D> children = new List<Entity3D>();
 
         Vector3 pos;
         Vector3 cPos, cLook, cUp, cRight;
         Model model;
-        float spin = 0.0f;
 
         public Game1()
         {
+            Instance = this;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -40,12 +42,7 @@ namespace _3D1
         {
             // TODO: Add your initialization logic here
 
-            pos = new Vector3(0, 0, -20);
-
-            cPos  = new Vector3(0, 6, 0);
-            cLook = new Vector3(0, 0, -1);
-            cRight = new Vector3(1, 0, 0);
-            cUp = new Vector3(0, 1, 0);
+            
 
             base.Initialize();
         }
@@ -59,7 +56,7 @@ namespace _3D1
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            model = Content.Load<Model>("dalek");
+            
 
             // TODO: use this.Content to load your game content here
         }
@@ -84,8 +81,6 @@ namespace _3D1
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            float timeDelta = (float) gameTime.ElapsedGameTime.TotalSeconds;
-            spin += timeDelta;
 
             // TODO: Add your update logic here
 
@@ -100,18 +95,15 @@ namespace _3D1
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            Matrix world = Matrix.CreateRotationY(spin) * Matrix.CreateTranslation(pos);
-            Matrix view = Matrix.CreateLookAt(cPos, cPos + cLook, cUp);
-            Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 800.0f / 400.0f, 1.0f, 1000.0f);
-
-            foreach (ModelMesh mesh in model.Meshes)
+            
+            fore (ModelMesh mesh in model.Meshes)
             {
-                foreach (BasicEffect effect in mesh.Effects)
+                for (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
-                    effect.World = world;
-                    effect.Projection = projection;
-                    effect.View = view;
+                    effect.World = chilren[i].world;
+                    effect.Projection = chilren[i].projection;
+                    effect.View = chilren[i].view;
                 }
                 mesh.Draw();
             }
