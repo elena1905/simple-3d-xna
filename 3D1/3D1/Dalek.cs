@@ -29,7 +29,7 @@ namespace _3D1
 
         public override void Update(GameTime gameTime)
         {
-            float timeDelta = gameTime.ElapsedGameTime.Seconds;
+            float timeDelta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             KeyboardState keyState = Keyboard.GetState();
 
