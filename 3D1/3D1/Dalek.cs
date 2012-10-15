@@ -10,43 +10,38 @@ namespace _3D1
 {
     class Dalek : Entity3D
     {
-        //Vector3 centre;
-        float spin = 0.0f;
+        
+        float spin = 0.0f;      // Spin speed
 
         public override void LoadContent()
         {
             base.LoadContent();
 
-            speed = 100.0f;
-            Alive = true;
+            speed = 100.0f;     // Movement speed
 
+            // Load 3D model
             model = Game1.Instance.Content.Load<Model>("dalek");
-
-            //centre.X = model.Width / 2;
-            //centre.Y = model.Height / 2;
-            //centre.Z = model.Depth / 2;
         }
 
         public override void Update(GameTime gameTime)
         {
+            // Get elapsed time in seconds
             float timeDelta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            // Get key pressed
             KeyboardState keyState = Keyboard.GetState();
-
-            // Calculate the orientation vector for the tank
-            //look.X = (float)Math.Sin(rotation);
-            //look.Y = (float)-Math.Cos(rotation);
-            //look.Z = (float)-Math.Cos(rotation);
 
             spin += timeDelta;
         }
 
         public override void Draw(GameTime gameTime)
         {
+            // Calculate matrices of world, view and projection
             world = Matrix.CreateRotationY(spin) * Matrix.CreateTranslation(pos);
-            view = Matrix.CreateLookAt(cPos, cPos + cLook, cUp);
+            view = Matrix.CreateLookAt(cameraPos, cameraPos + cameraLook, cameraUp);
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 800.0f / 400.0f, 1.0f, 1000.0f);
 
+            // Draw each part object in the model mesh
             foreach (ModelMesh mesh in model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
@@ -58,7 +53,6 @@ namespace _3D1
                 }
                 mesh.Draw();
             }
-            //Game1.Instance.spriteBatch.Draw(model, pos, null, Color.White, look, centre, Vector3.One, SpriteEffects.None, 1);
         }
     }
 }

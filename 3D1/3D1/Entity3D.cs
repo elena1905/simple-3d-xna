@@ -10,15 +10,19 @@ namespace _3D1
     public class Entity3D
     {
         // Class members
+        // 3D model variables
         public Vector3 pos;
         public Vector3 look;
-        public Vector3 cPos, cLook, cUp, cRight;
+
+        // Camera variables
+        public Vector3 cameraPos, cameraLook, cameraUp, cameraRight;
 
         public float speed;
 
         public Model model;
         public Matrix world, view, projection;
 
+        // Indicate if the entity is alive
         public bool Alive { get; set; }
 
         public virtual void Initialize()
@@ -27,10 +31,10 @@ namespace _3D1
 
             pos = new Vector3(0, 0, -20);
             
-            cPos = new Vector3(0, 6, 0);
-            cLook = new Vector3(0, 0, -1);
-            cRight = new Vector3(1, 0, 0);
-            cUp = new Vector3(0, 1, 0);
+            cameraPos = new Vector3(0, 6, 0);
+            cameraLook = new Vector3(0, 0, -1);
+            cameraRight = new Vector3(1, 0, 0);
+            cameraUp = new Vector3(0, 1, 0);
         }
 
         public virtual void LoadContent() { }
